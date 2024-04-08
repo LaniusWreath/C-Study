@@ -28,10 +28,10 @@
    
 
 11. Option - Debugging - General - Enable Edit and Continue and Hot Reload (Uncheck)
-
-   : 비쥬얼 스튜디오 핫 리로딩 대신 언리얼 라이브 코딩 사용
+   
+    : 비쥬얼 스튜디오 핫 리로딩 대신 언리얼 라이브 코딩 사용
    
 
-13. 툴바 오른쪽 클릭 - Customize - Commands - Toolbar - Build->Standard - Solution Configuration - Modify Selection - 200
-
-   : 솔루션 구성 박스 길이 늘리기
+14. 툴바 오른쪽 클릭 - Customize - Commands - Toolbar - Build->Standard - Solution Configuration - Modify Selection - 200
+   
+    : 솔루션 구성 박스 길이 늘리기
