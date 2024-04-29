@@ -2,38 +2,36 @@
 #include <string>
 using namespace std;
 
-char MatrixA[5][15];
-string str;
-int length, maxLength = 0, maxRow = 0;
+int Amount, a, b, S;
+int MaxtrixA[100][100] = {0};
 
 int main()
 {
-	for (int i = 0; i < 5; i++)
+	cin >> Amount;
+	for (int i = 0; i < Amount; i++)
 	{
-		getline(cin, str);
-		length = str.length();
-		if (length > maxLength)
+		cin >> a >> b;
+		for (int x = a; x < a+10; x++)
 		{
-			maxLength = length;
-			//maxRow = i;
-		}
-		for (int j = 0; j < str.length(); j++)
-		{
-			MatrixA[i][j] = str[j];
+			for (int y = b; y < b+10; y++)
+			{
+				MaxtrixA[x][y] += 1;
+			}
 		}
 	}
 	
-	for (int i = 0; i < maxLength; i++)
+	for (int i = 0; i < 100; i++)
 	{
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < 100; j++)
 		{
-			if (MatrixA[j][i] == NULL)
+			if (MaxtrixA[i][j] > 0)
 			{
-				continue;
+				S = S + 1;
 			}
-			cout << MatrixA[j][i];
 		}
 	}
+	
+	cout << S;
 
 	return 0;
 }
