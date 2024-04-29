@@ -1,4 +1,4 @@
-//240430f
+//왜 잔디 안심어지지?
 #include <iostream>
 
 using namespace std;
