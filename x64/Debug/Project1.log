@@ -1,0 +1,10 @@
+﻿  MatrixMaximum.cpp
+  소스.cpp
+  코드를 생성하고 있습니다...
+소스.obj : error LNK2005: main이(가) MatrixMaximum.obj에 이미 정의되어 있습니다.
+소스.obj : error LNK2005: "int (* MatrixA)[9]" (?MatrixA@@3PAY08HA)이(가) MatrixMaximum.obj에 이미 정의되어 있습니다.
+소스.obj : error LNK2005: "int MaxRaw" (?MaxRaw@@3HA)이(가) MatrixMaximum.obj에 이미 정의되어 있습니다.
+소스.obj : error LNK2005: "int MaxColumn" (?MaxColumn@@3HA)이(가) MatrixMaximum.obj에 이미 정의되어 있습니다.
+소스.obj : error LNK2005: "int MaxValue" (?MaxValue@@3HA)이(가) MatrixMaximum.obj에 이미 정의되어 있습니다.
+소스.obj : error LNK2005: "int CurrentValue" (?CurrentValue@@3HA)이(가) MatrixMaximum.obj에 이미 정의되어 있습니다.
+C:\Users\tls68\Desktop\C++\Project1\x64\Debug\Project1.exe : fatal error LNK1169: 여러 번 정의된 기호가 있습니다.
