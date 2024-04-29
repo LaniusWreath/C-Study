@@ -22,7 +22,7 @@ int main()
 			MatrixA[i][j] = str[j];
 		}
 	}
-	
+
 	for (int i = 0; i < maxLength; i++)
 	{
 		for (int j = 0; j < 5; j++)

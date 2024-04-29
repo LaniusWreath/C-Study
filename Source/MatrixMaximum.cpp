@@ -1,4 +1,4 @@
-//왜 안심어지는데?
+
 #include <iostream>
 
 using namespace std;
