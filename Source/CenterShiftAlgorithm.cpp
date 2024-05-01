@@ -11,7 +11,7 @@ int main()
 
 	for (int i = 0; i < N; i++)
 	{
-		SidePoint = SidePoint*2-1;
+		SidePoint = SidePoint * 2 - 1;
 	}
 
 	Total = pow(SidePoint, 2);
