@@ -3,7 +3,7 @@
 
 using namespace std;
 
-int cents[4] = {25, 10, 5, 1};
+int cents[4] = { 25, 10, 5, 1 };
 int T, C;
 
 int main()
@@ -13,8 +13,8 @@ int main()
 	{
 		cin >> C;
 		for (int j = 0; j < 4; j++)
-		{	
-			cout << C / cents[j] <<" ";
+		{
+			cout << C / cents[j] << " ";
 			C = C % cents[j];
 		}
 		cout << "\n";
