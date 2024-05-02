@@ -4,7 +4,7 @@ using namespace std;
 
 int main()
 {
-	int N, K, count=0, currentNumber = 1;
+	int N, K, count = 0, currentNumber = 1;
 
 	cin >> N >> K;
 
@@ -23,6 +23,6 @@ int main()
 		currentNumber++;
 	}
 
-	cout << currentNumber-1;
+	cout << currentNumber - 1;
 	return 0;
 }
