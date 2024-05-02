@@ -21,7 +21,7 @@ int main()
 			break;
 		}
 
-		for (int i = 1; i <= n/2; i++)
+		for (int i = 1; i <= n / 2; i++)
 		{
 			if (n % i == 0)
 			{
@@ -34,15 +34,15 @@ int main()
 		if (sum == n)
 		{
 			cout << n << " = ";
-			for (int i=0; i<tail; i++)
+			for (int i = 0; i < tail; i++)
 			{
-				if (i != tail-1)
+				if (i != tail - 1)
 				{
 					cout << array[i] << " + ";
 				}
 				else
 				{
-					cout << array[i]; 
+					cout << array[i];
 				}
 			}
 		}

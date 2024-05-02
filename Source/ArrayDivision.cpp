@@ -3,21 +3,16 @@
 
 using namespace std;
 
-int cents[4] = { 25, 10, 5, 1 };
-int T, C;
+//2^2 -> 3^2 -> 5^2 -> 9^2 -> 17^2
+
+int N, Point=2, Blank, Total;
 
 int main()
 {
-	cin >> T;
-	for (int i = 0; i < T; i++)
-	{
-		cin >> C;
-		for (int j = 0; j < 4; j++)
-		{
-			cout << C / cents[j] << " ";
-			C = C % cents[j];
-		}
-		cout << "\n";
-	}
+	cin >> N;
+
+	Total = pow(Point, 2);
+	cout << Total;
+
 	return 0;
 }
