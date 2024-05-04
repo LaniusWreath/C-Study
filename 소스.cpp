@@ -1,58 +1,35 @@
+//문제
+//정수 N이 주어졌을 때, 소인수분해하는 프로그램을 작성하시오.
+//
+//입력
+//첫째 줄에 정수 N(1 ≤ N ≤ 10, 000, 000)이 주어진다.
+//
+//출력
+//N의 소인수분해 결과를 한 줄에 하나씩 오름차순으로 출력한다.N이 1인 경우 아무것도 출력하지 않는다.
+
 #include "iostream"
-#include "vector"
 
 using namespace std;
 
-
 int main()
 {
-	int n, sum, tail = 0;
+	int N;
 
-	while (true)
+	cin >> N;
+	int i = 2;
+
+	while (N != 1)
 	{
-		int array[2000] = {};
-		sum = 0;
-		tail = 0;
-
-		cin >> n;
-
-		if (n == -1)
+		if (N % i == 0)
 		{
-			break;
-		}
-
-		for (int i = 1; i <= n/2; i++)
-		{
-			if (n % i == 0)
-			{
-				sum = sum + i;
-				array[tail] = i;
-				tail += 1;
-			}
-		}
-
-		if (sum == n)
-		{
-			cout << n << " = ";
-			for (int i=0; i<tail; i++)
-			{
-				if (i != tail-1)
-				{
-					cout << array[i] << " + ";
-				}
-				else
-				{
-					cout << array[i]; 
-				}
-			}
+			cout << i << "\n";
+			N = N / i;
 		}
 		else
 		{
-			cout << n << " is NOT perfect.";
+			i++;
 		}
-
-		cout << "\n";
-
 	}
+
 	return 0;
 }
