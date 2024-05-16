@@ -6,53 +6,27 @@ using namespace std;
 
 int main()
 {
-	int n, sum, tail = 0;
+	int N, number, temp, count = 0;
+	cin >> N;
 
-	while (true)
+	for (int i = 0; i < N; i++)
 	{
-		int array[2000] = {};
-		sum = 0;
-		tail = 0;
-
-		cin >> n;
-
-		if (n == -1)
+		temp = 0;
+		cin >> number;
+		for (int j = 2; j <= number; j++)
 		{
-			break;
-		}
-
-		for (int i = 1; i <= n/2; i++)
-		{
-			if (n % i == 0)
+			if (number % j == 0)
 			{
-				sum = sum + i;
-				array[tail] = i;
-				tail += 1;
+				temp++;
 			}
 		}
-
-		if (sum == n)
+		if (temp == 1)
 		{
-			cout << n << " = ";
-			for (int i=0; i<tail; i++)
-			{
-				if (i != tail-1)
-				{
-					cout << array[i] << " + ";
-				}
-				else
-				{
-					cout << array[i]; 
-				}
-			}
+			count++;
 		}
-		else
-		{
-			cout << n << " is NOT perfect.";
-		}
-
-		cout << "\n";
-
 	}
+	
+	cout << count;
+
 	return 0;
 }
