@@ -19,6 +19,7 @@ enum E_NozzleNames
 struct S_NozzleBall
 {
 	S_NozzleBall* PreCase;
+	vector<S_NozzleBall*> NextCase;
 	vector<vector<int>> CombinationVectors;
 	vector<vector<int>> RestBalls;
 	vector<int> TimeSpent;
@@ -36,7 +37,6 @@ struct S_NozzleBall
 		if (count == 4)
 		{
 			vector<int> Balls = PreBalls;
-
 			for (int j = 0; j < 4; j++)
 			{
 				Balls[NozzleSelection[j]]--;
@@ -46,17 +46,13 @@ struct S_NozzleBall
 					return;
 				}
 			}
-
+			RestBalls.push_back(Balls);
 			CombinationVectors.push_back(NozzleSelection);
-			
-			
 			return;
 		}
-
 		for (int i = index; i < 6; i++)
 		{
 			NozzleSelection[count] = i;
-
 			F_InitializeCombination(PreBalls, NozzleSelection, i, count + 1);
 		}
 	}
@@ -75,7 +71,9 @@ int main()
 
 	S_NozzleBall Head(nullptr, vector<vector<int>>(), vector<vector<int>>(), vector<int>());
 	Head.F_InitializeCombination(Balls, vector<int>(4), 0, 0);
-	
+
+
+
 	
 	for (const auto& comb : Head.CombinationVectors) {
 		for (int nozzle : comb) {
@@ -83,6 +81,9 @@ int main()
 		}
 		cout << endl;
 	}
+	cout << endl;
+	
+	cout << Head.CombinationVectors.size() << " " << Head.RestBalls.size();
 	
 	return 0;
 }
