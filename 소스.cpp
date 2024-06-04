@@ -19,54 +19,49 @@ enum E_NozzleNames
 struct S_NozzleBall
 {
 	S_NozzleBall* PreCase;
-	vector<vector<int>> NozzleCases;
-	vector<int> RestBalls;
-	int TimeSpent;
+	vector<vector<int>> CombinationVectors;
+	vector<vector<int>> RestBalls;
+	vector<int> TimeSpent;
 
-	S_NozzleBall(S_NozzleBall* InitPreCase ,vector<vector<int>> InitNozzleCases, vector<int> InitRestBalls, int InitTimeSpent)
+	S_NozzleBall(S_NozzleBall* InitPreCase ,vector<vector<int>> InitCombinationVectors, vector<vector<int>> InitRestBalls, vector<int> InitTimeSpent)
 	{
 		PreCase = InitPreCase;
-		NozzleCases = InitNozzleCases;
+		CombinationVectors = InitCombinationVectors;
 		RestBalls = InitRestBalls;
 		TimeSpent = InitTimeSpent;
 	}
 
-};
-
-//≥Î¡Ò º±≈√
-void F_InitializeCombination(vector<vector<int>> &CombinationVectors, vector<int> Balls, vector<int> NozzleSelection, int index, int count)
-{
-	if (count == 4)
+	void F_InitializeCombination(vector<vector<int>>& CombinationVectors, vector<int> PreBalls, vector<int> NozzleSelection, int index, int count)
 	{
-		vector<int> RestBalls = Balls;
-
-		for (int j= 0; j<4; j++)
+		if (count == 4)
 		{
-			RestBalls[NozzleSelection[j]]--;
+			vector<int> Balls = PreBalls;
 
-			if (RestBalls[NozzleSelection[j]] < 0)
+			for (int j = 0; j < 4; j++)
 			{
-				return;
+				Balls[NozzleSelection[j]]--;
+
+				if (Balls[NozzleSelection[j]] < 0)
+				{
+					return;
+				}
 			}
+
+			CombinationVectors.push_back(NozzleSelection);
+			
+			
+			return;
 		}
 
-		CombinationVectors.push_back(NozzleSelection);
-		return;
+		for (int i = index; i < 6; i++)
+		{
+			NozzleSelection[count] = i;
+
+			F_InitializeCombination(CombinationVectors, PreBalls, NozzleSelection, i, count + 1);
+		}
 	}
+};
 
-	for(int i=index; i<6; i++)
-	{
-		NozzleSelection[count] = i;
-
-		F_InitializeCombination(CombinationVectors, Balls, NozzleSelection, i, count+1);
-	}
-}
-
-////≥Î¡Ò∑Œ ∞¯ «— π¯ ª©±‚
-//vector<int> F_CalculateRestball(vector<vector<int>>& CombinationVectors, vector<int> Balls)
-//{
-//	return 
-//}
 
 
 int main()
@@ -78,17 +73,11 @@ int main()
 		cin >> Balls[i];
 	}
 
-	vector<vector<int>> CombinationVectors;
-
-	S_NozzleBall Head(nullptr, CombinationVectors, Balls, 0);
-
-	vector<int> NozzleSelection(4);
-
-	F_InitializeCombination(CombinationVectors, Balls, NozzleSelection, 0, 0);
-
+	S_NozzleBall Head(nullptr, vector<vector<int>>(), vector<vector<int>>(), vector<int>());
+	Head.F_InitializeCombination(Head.CombinationVectors, Balls, vector<int>(4), 0, 0);
 	
 	
-	for (const auto& comb : CombinationVectors) {
+	for (const auto& comb : Head.CombinationVectors) {
 		for (int nozzle : comb) {
 			cout << nozzle << " ";
 		}
