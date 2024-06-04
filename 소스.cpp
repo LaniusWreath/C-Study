@@ -31,7 +31,7 @@ struct S_NozzleBall
 		TimeSpent = InitTimeSpent;
 	}
 
-	void F_InitializeCombination(vector<vector<int>>& CombinationVectors, vector<int> PreBalls, vector<int> NozzleSelection, int index, int count)
+	void F_InitializeCombination(vector<int> PreBalls, vector<int> NozzleSelection, int index, int count)
 	{
 		if (count == 4)
 		{
@@ -57,7 +57,7 @@ struct S_NozzleBall
 		{
 			NozzleSelection[count] = i;
 
-			F_InitializeCombination(CombinationVectors, PreBalls, NozzleSelection, i, count + 1);
+			F_InitializeCombination(PreBalls, NozzleSelection, i, count + 1);
 		}
 	}
 };
@@ -74,7 +74,7 @@ int main()
 	}
 
 	S_NozzleBall Head(nullptr, vector<vector<int>>(), vector<vector<int>>(), vector<int>());
-	Head.F_InitializeCombination(Head.CombinationVectors, Balls, vector<int>(4), 0, 0);
+	Head.F_InitializeCombination(Balls, vector<int>(4), 0, 0);
 	
 	
 	for (const auto& comb : Head.CombinationVectors) {
