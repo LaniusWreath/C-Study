@@ -1,7 +1,6 @@
 #include "iostream"
 #include "vector"
 #include "algorithm"
-#include "memory"
 
 using namespace std;
 
@@ -13,23 +12,27 @@ bool IsNozzleballFinished = false;
 struct S_NozzleBall
 {
 	S_NozzleBall* ParentNode;
-
 	vector<vector<int>> RegacyNozzle;
 	vector<int> CalculatedBalls;
 
 	vector<int> CalculatedCount;
 	int CalculatedTime = 0;
-	bool IsFinished=false;
+	bool IsFinished = false;
 
 	S_NozzleBall(S_NozzleBall* Parent)
 	{
 		ParentNode = Parent;
 	}
+	S_NozzleBall()
+	{
+		delete this->ParentNode;
+	}
 
-	void F_InitializeCombination(vector<vector<int>>& CombinationVectors, vector<int> PreBalls, vector<int> NozzleSelection = {}, int index = 0, int count = 0)
+	//Create Combination with Repetition
+	void F_CreateCombinations(vector<vector<int>>& CombinationVectors, vector<int> PreBalls, vector<int> NozzleSelection = {}, int index = 0, int count = 0)
 	{
 		int SelectBall;
-		if (count == MaxNozzleNumber || all_of(PreBalls.begin(), PreBalls.end(), [](int i) {return i == 0;}))
+		if (count == MaxNozzleNumber || all_of(PreBalls.begin(), PreBalls.end(), [](int i) {return i == 0; }))
 		{
 			//CombinationVectors
 			CombinationVectors.push_back(NozzleSelection);
@@ -44,14 +47,15 @@ struct S_NozzleBall
 				PreBalls[i]--;
 
 				NozzleSelection.push_back(SelectBall);
-				F_InitializeCombination(CombinationVectors, PreBalls, NozzleSelection, i, count + 1);
+				F_CreateCombinations(CombinationVectors, PreBalls, NozzleSelection, i, count + 1);
 				NozzleSelection.pop_back();
 
 				PreBalls[i]++;
 			}
 		}
 	}
-	
+
+	//Subtract Balls while Selected Members are Zero
 	vector<int> F_PutOutBalls(const vector<int>& RegacyBalls, const vector<int>& NozzleSelection)
 	{
 		vector<int>NozzleMembers;
@@ -89,27 +93,29 @@ struct S_NozzleBall
 				break;
 			}
 		}
-		
+
 		CalculatedCount.push_back(CalCount);
 		return BallPool;
 	}
 
-
+	//Add Time from Parent Node
 	void AddRegacyTime(const int& RegacyTime)
 	{
 		CalculatedTime += RegacyTime;
 	}
 
+	//Initialzie Parent Node Nozzle Vector
 	void InitializeRegacyNozzle(const vector<vector<int>>& ParentNozzle, const vector<int>& ParentCalculatedCount)
 	{
 		this->CalculatedCount = ParentCalculatedCount;
 		this->RegacyNozzle = ParentNozzle;
 	}
-	
+
+	//Print Node Status
 	void PrintStatus()
 	{
 		cout << "노즐 조합: ";
-		for (int i = 0; i <RegacyNozzle.size(); i++)
+		for (int i = 0; i < RegacyNozzle.size(); i++)
 		{
 			cout << "[ ";
 			for (const int& Nozzle : RegacyNozzle[i])
@@ -118,7 +124,7 @@ struct S_NozzleBall
 			}
 			cout << "] " << CalculatedCount[i] << "회 ";
 		}
-		
+
 		cout << endl;
 
 		cout << "잔여 공 개수: ";
@@ -131,6 +137,7 @@ struct S_NozzleBall
 		cout << "소요 시간: " << CalculatedTime << endl << endl;
 	}
 
+	//Check if All Ball Members are zero
 	bool CheckEnd()
 	{
 		for (const int& Ball : CalculatedBalls)
@@ -148,9 +155,9 @@ struct S_NozzleBall
 //Create&Initialize ChildNode
 vector<S_NozzleBall*> F_CreateChildNodes(S_NozzleBall* NozzleBallPtr, const vector<int>& PreBalls)
 {
-	vector<vector<int>> CombinationVectors;
-	NozzleBallPtr->F_InitializeCombination(CombinationVectors, PreBalls);
 
+	vector<vector<int>> CombinationVectors;
+	NozzleBallPtr->F_CreateCombinations(CombinationVectors, PreBalls);
 	vector<S_NozzleBall*> ChildNodeVectors;
 
 	for (int i = 0; i < CombinationVectors.size(); i++)
@@ -182,7 +189,6 @@ vector<S_NozzleBall*> F_CreateChildNodes(S_NozzleBall* NozzleBallPtr, const vect
 
 		//Initialize Child Node CalculatedBalls 
 		ChildNode->CalculatedBalls = ChildNode->F_PutOutBalls(NozzleBallPtr->CalculatedBalls, CombinationVectors[i]);
-		
 		ChildNode->PrintStatus();
 
 		if (ChildNode->CheckEnd())
@@ -194,6 +200,7 @@ vector<S_NozzleBall*> F_CreateChildNodes(S_NozzleBall* NozzleBallPtr, const vect
 	return ChildNodeVectors;
 }
 
+//Excute Program
 void F_ExcuteNozzleBall()
 {
 	int Count = 1;
@@ -217,7 +224,7 @@ void F_ExcuteNozzleBall()
 
 	vector<S_NozzleBall*>CurrentChildNodeVector = F_CreateChildNodes(Head, Head->CalculatedBalls);
 	vector<S_NozzleBall*>NextChildNodeVector;
-	vector<S_NozzleBall>BestNozzles;
+	S_NozzleBall BestNozzle = S_NozzleBall(nullptr);
 
 	while (!IsNozzleballFinished)
 	{
@@ -230,7 +237,7 @@ void F_ExcuteNozzleBall()
 			{
 				if (TempNode->IsFinished == true)
 				{
-					BestNozzles.push_back(*TempNode);
+					BestNozzle = *TempNode;
 					IsNozzleballFinished = true;
 				}
 				NextChildNodeVector.push_back(TempNode);
@@ -244,21 +251,21 @@ void F_ExcuteNozzleBall()
 
 		CurrentChildNodeVector = NextChildNodeVector;
 		NextChildNodeVector.clear();
+
+		Count++;
 	}
-
-	cout << endl << "< 가장 효율적인 조합 및 노즐 변경 순서 리스트 >" << endl;
-
-	for (S_NozzleBall Nozzle : BestNozzles)
-	{
-		Nozzle.PrintStatus();
-	}
-
-	cout << endl << "< 가장 효율적인 대표 조합 및 노즐 변경 대표 순서 >" <<endl;
 	
-	BestNozzles[0].PrintStatus();
+	for (S_NozzleBall* Node : CurrentChildNodeVector)
+	{
+		delete Node;
+	}
 
+	cout << endl << "< 가장 효율적인 대표 조합 및 노즐 변경 대표 순서 >" << endl;
+
+	BestNozzle.PrintStatus();
+
+	delete Head;
 }
-
 
 int main()
 {
