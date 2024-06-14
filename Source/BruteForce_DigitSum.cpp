@@ -9,7 +9,7 @@ int sumNumberMembers(int Number)
 	int sum = 0;
 	int size = to_string(Number).length();
 	int power = 1;
-	
+
 	while (power < size)
 	{
 		int quotient = pow(10, size - power);
@@ -31,7 +31,7 @@ int main()
 	string numString;
 
 	cin >> N;
-	
+
 	numString = to_string(N);
 	numLength = numString.size();
 
