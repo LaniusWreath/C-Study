@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BruteForce_DigitSum.cpp" />
     <ClCompile Include="functions.h" />
     <ClCompile Include="소스.cpp" />
   </ItemGroup>
