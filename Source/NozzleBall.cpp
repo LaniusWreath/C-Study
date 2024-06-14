@@ -23,9 +23,9 @@ struct S_NozzleBall
 	{
 		ParentNode = Parent;
 	}
-	S_NozzleBall()
+	~S_NozzleBall()
 	{
-		delete this->ParentNode;
+
 	}
 
 	//Create Combination with Repetition
